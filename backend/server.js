@@ -1,9 +1,7 @@
 import express from "express";
 import 'dotenv/config'
 import mongoose from "mongoose";
-import  {Book} from './models/bookModel.js';
 import booksRoute from './routes/booksRoute.js'
-
 
 const app = express();
 
