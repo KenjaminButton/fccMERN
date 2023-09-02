@@ -11,8 +11,6 @@ app.get('/', (req, res) => {
   return res.status(234).send('Welcome to Kenjamin Button land')
 })
 
-
-
 mongoose.connect(process.env.ATLAS_URI)
   .then( () => {
     console.log('App connected to database')
