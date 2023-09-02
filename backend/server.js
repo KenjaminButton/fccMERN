@@ -13,7 +13,8 @@ app.get('/', (req, res) => {
   return res.status(234).send('Welcome to Kenjamin Button land')
 })
 
-// Route to save a new book
+// Route to POST a new book
+// http://localhost:5555/books
 app.post('/books', async (request, response) => {
   try {
     if (
@@ -35,6 +36,35 @@ app.post('/books', async (request, response) => {
     return response.status(201).send(book)
 
   } catch (error) {
+    console.log(error.message)
+    response.status(500).send({message: error.message})
+  }
+})
+
+// Route to GET all books
+// http://localhost:5555/books
+app.get('/books', async (request, response) => {
+  try {
+    const books = await Book.find({})
+    response.status(200).json({
+      count: books.length,
+      data: books
+    })
+  } catch(error) {
+    console.log(error.message)
+    response.status(500).send({message: error.message})
+  }
+})
+
+// Route to GET one book by id
+// http://localhost:5555/books/14783495
+app.get('/books/:id', async (request, response) => {
+  try {
+    const {id} = request.params;
+    const book = await Book.findById(id)
+    response.status(200).json(book)
+    
+  } catch(error) {
     console.log(error.message)
     response.status(500).send({message: error.message})
   }
