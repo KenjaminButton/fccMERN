@@ -1,13 +1,25 @@
 import express from "express";
-import {PORT} from './config.js'
+
+// require('dotenv').config()
+import 'dotenv/config'
+import mongoose from "mongoose";
 
 const app = express();
 
 app.get('/', (req, res) => {
-  console.log(req)
+  // console.log(req)
   return res.status(234).send('Welcome to Kenjamin Button land')
 })
 
-app.listen(PORT, () => {
-  console.log(`APP is listening to port: ${PORT}`)
-})
+
+
+mongoose.connect(process.env.ATLAS_URI)
+  .then( () => {
+    console.log('App connected to database')
+    app.listen(process.env.PORT, () => {
+      console.log(`APP is listening to port: ${process.env.PORT}`)
+    })
+  })
+  .catch( (error) => {
+    console.log(error)
+  })
